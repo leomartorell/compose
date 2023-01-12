@@ -7,12 +7,6 @@ services:
     volumes:
       - /certs:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
-  mongodb:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - /mongo_data_directory/:/data/db/
   balance:
     image: cashinoonline/cashino-balance-api
     restart: always
@@ -31,25 +25,6 @@ services:
       - VIRTUAL_HOST=casino.local
     env_file:
       - ~/compose/casinoEnv.env
-  bet:
-    image: cashinoonline/cashino-bets
-    restart: always
-    expose:
-      - 80
-    environment:
-      - VIRTUAL_HOST=bets.local
-    env_file:
-      - ~/compose/betsEnv.env
-  games:
-    image: cashinoonline/cashino-games
-    restart: always
-    expose:
-      - 80
-      - 443
-    environment:
-      - VIRTUAL_HOST=games.local
-    env_file:
-      - ~/compose/gamesEnv.env
   iframes:
     image: cashinoonline/cashino-iframes
     expose:
