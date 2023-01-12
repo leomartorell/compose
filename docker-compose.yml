@@ -3,10 +3,56 @@ services:
     image: jwilder/nginx-proxy
     ports:
       - "80:80"
+      - "443:443"
     volumes:
+      - /certs:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  whoami:
-    image: jwilder/whoami
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - /mongo_data_directory/:/data/db/
+  balance:
+    image: cashinoonline/cashino-balance-api
+    restart: always
+    expose:
+      - 80
     environment:
-      - VIRTUAL_HOST=whoami.local
+      - VIRTUAL_HOST=balance.local
+    env_file:
+      - balanceEnv.env
+  casino:
+    image: cashinoonline/cashino-api
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=casino.local
+    env_file:
+      - casinoEnv.env
+  bet:
+    image: cashinoonline/cashino-bets
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=bets.local
+    env_file:
+      - betsEnv.env
+  games:
+    image: cashinoonline/cashino-games
+    restart: always
+    expose:
+      - 80
+      - 443
+    environment:
+      - VIRTUAL_HOST=games.local
+    env_file:
+      - gamesEnv.env
+  iframes:
+    image: cashinoonline/cashino-iframes
+    expose:
+      - 80      
+    environment:
+      - VIRTUAL_HOST=iframes.local
