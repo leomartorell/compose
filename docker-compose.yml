@@ -15,7 +15,7 @@ services:
     environment:
       - VIRTUAL_HOST=casino.local
     env_file:
-      - ~/compose/casinoEnv.env
+      - casinoEnv.env
   iframes:
     image: cashinoonline/cashino-iframes
     expose:
