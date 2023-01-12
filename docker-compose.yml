@@ -7,15 +7,6 @@ services:
     volumes:
       - /certs:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
-  balance:
-    image: cashinoonline/cashino-balance-api
-    restart: always
-    expose:
-      - 80
-    environment:
-      - VIRTUAL_HOST=balance.local
-    env_file:
-      - ~/compose/balanceEnv.env
   casino:
     image: cashinoonline/cashino-api
     restart: always
