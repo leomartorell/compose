@@ -21,7 +21,7 @@ services:
     environment:
       - VIRTUAL_HOST=balance.local
     env_file:
-      - balanceEnv.env
+      - ~/compose/balanceEnv.env
   casino:
     image: cashinoonline/cashino-api
     restart: always
@@ -30,7 +30,7 @@ services:
     environment:
       - VIRTUAL_HOST=casino.local
     env_file:
-      - casinoEnv.env
+      - ~/compose/casinoEnv.env
   bet:
     image: cashinoonline/cashino-bets
     restart: always
@@ -39,7 +39,7 @@ services:
     environment:
       - VIRTUAL_HOST=bets.local
     env_file:
-      - betsEnv.env
+      - ~/compose/betsEnv.env
   games:
     image: cashinoonline/cashino-games
     restart: always
@@ -49,7 +49,7 @@ services:
     environment:
       - VIRTUAL_HOST=games.local
     env_file:
-      - gamesEnv.env
+      - ~/compose/gamesEnv.env
   iframes:
     image: cashinoonline/cashino-iframes
     expose:
