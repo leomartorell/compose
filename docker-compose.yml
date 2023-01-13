@@ -13,7 +13,7 @@ services:
     expose:
       - 80
     environment:
-      - VIRTUAL_HOST=casino.local
+      - VIRTUAL_HOST=casino.cashino.online
     env_file:
       - casinoEnv.env
   iframes:
@@ -21,11 +21,38 @@ services:
     expose:
       - 80      
     environment:
-      - VIRTUAL_HOST=iframes.local
+      - VIRTUAL_HOST=iframes.cashino.online
   home:
     image: cashinoonline/cashino-home
     expose:
       - 80
       - 443      
     environment:
-      - VIRTUAL_HOST=local,*
+      - VIRTUAL_HOST=cashino.online
+  balance:
+    image: cashinoonline/cashino-balance-api
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=balance.cashino.online
+    env_file:
+      - balanceEnv.env
+  games:
+    image: cashinoonline/cashino-games
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=games.cashino.online
+    env_file:
+      - gamesEnv.env
+  bets:
+    image: cashinoonline/cashino-bets
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=bets.cashino.online
+    env_file:
+      - betsEnv.env

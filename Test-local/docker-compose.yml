@@ -1,0 +1,31 @@
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ~/certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  casino:
+    image: cashinoonline/cashino-api
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=casino.local
+    env_file:
+      - casinoEnv.env
+  iframes:
+    image: cashinoonline/cashino-iframes
+    expose:
+      - 80      
+    environment:
+      - VIRTUAL_HOST=iframes.local
+  home:
+    image: cashinoonline/cashino-home
+    expose:
+      - 80
+      - 443      
+    environment:
+      - VIRTUAL_HOST=local
