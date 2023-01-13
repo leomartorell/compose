@@ -22,3 +22,10 @@ services:
       - 80      
     environment:
       - VIRTUAL_HOST=iframes.local
+  home:
+    image: cashinoonline/cashino-home
+    expose:
+      - 80
+      - 443      
+    environment:
+      - VIRTUAL_HOST=local
