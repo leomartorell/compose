@@ -7,6 +7,8 @@ services:
     volumes:
       - ~/certs:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - cashino-net
   casino:
     image: cashinoonline/cashino-api
     restart: always
@@ -16,12 +18,16 @@ services:
       - VIRTUAL_HOST=casino.cashino.online
     env_file:
       - casinoEnv.env
+    networks:
+      - cashino-net
   iframes:
     image: cashinoonline/cashino-iframes
     expose:
       - 80      
     environment:
       - VIRTUAL_HOST=iframes.cashino.online
+    networks:
+      - cashino-net
   home:
     image: cashinoonline/cashino-home
     expose:
@@ -29,6 +35,8 @@ services:
       - 443      
     environment:
       - VIRTUAL_HOST=cashino.online
+    networks:
+      - cashino-net
   balance:
     image: cashinoonline/cashino-balance-api
     restart: always
@@ -38,6 +46,8 @@ services:
       - VIRTUAL_HOST=balance.cashino.online
     env_file:
       - balanceEnv.env
+    networks:
+      - cashino-net
   games:
     image: cashinoonline/cashino-games
     restart: always
@@ -47,6 +57,8 @@ services:
       - VIRTUAL_HOST=games.cashino.online
     env_file:
       - gamesEnv.env
+    networks:
+      - cashino-net
   bets:
     image: cashinoonline/cashino-bets
     restart: always
@@ -56,3 +68,8 @@ services:
       - VIRTUAL_HOST=bets.cashino.online
     env_file:
       - betsEnv.env
+    networks:
+      - cashino-net
+  networks:
+    cashino-net:
+        external: true
